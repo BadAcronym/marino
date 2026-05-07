@@ -32,11 +32,12 @@ then
         if [[ $? != 0 ]]
         then
             echo -e "\033[31m\nERROR: failed to compile river2D.\033[0m"
-            exit -1
+            exit -1;
         fi
         popd > /dev/null
     else
         echo -e "\033[31m\nERROR: can't find river2D's run script.\033[0m"
+        exit -1;
     fi
 
     echo ""
@@ -54,14 +55,14 @@ fi
 if [[ $? != 0 ]]
 then
     echo -e "\033[31m\nERROR: failed to compile marino.\n\033[0m"
-    exit -1
+    exit -1;
 fi
 
 echo -e "\n"
 
 if [[ $2 = "--compile-only" ]]
 then
-    exit 0
+    exit 0;
 fi
 
 popd > /dev/null

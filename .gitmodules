@@ -1,0 +1,6 @@
+[submodule "vendor/river2D"]
+	path = vendor/river2D
+	url = git@github.com:badacronym/river2D
+[submodule "vendor/puddle"]
+	path = vendor/puddle
+	url = git@github.com:badacronym/puddle

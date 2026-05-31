@@ -1,4 +1,4 @@
-#include "river2D_main.h"
+#include "marino_main.h"
 
 #ifdef ASAN
         #define LIBPATH "./vendor/river2D/bin/asan/"
@@ -14,9 +14,9 @@ int main
 (
     void
 ){
-    LauncherData  launcher = {0};
-    EngineData    engine   = {0};
-    River2D_Image planes[RIVER2D_MAX_PLANES] = {0};
+    LauncherData launcher = {0};
+    EngineData   engine   = {0};
+    RiverImage   planes[RIVER2D_MAX_PLANES] = {0};
 
     StringView libpath = cstr_sv(LIBPATH);
     river2D_resolveRenderer(&engine, libpath, RIVER2D_RENDERER_SOFTWARE);

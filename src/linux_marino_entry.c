@@ -141,6 +141,9 @@ int main
         }
     }
 
-    river2D_shutdown(&engine);
+    if(rvShutdown(&engine))
+    {
+        return -1;
+    }
     return marino_shutdown(&launcher);
 }

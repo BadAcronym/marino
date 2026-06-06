@@ -16,16 +16,16 @@ int main
 ){
     LauncherData launcher = {0};
     EngineData   engine   = {0};
-    RiverImage   planes[RIVER2D_MAX_PLANES] = {0};
+    RiverImage   planes[RV_MAX_PLANES] = {0};
 
     StringView libpath = cstr_sv(LIBPATH);
-    river2D_resolveRenderer(&engine, libpath, RIVER2D_RENDERER_SOFTWARE);
+    rvResolveRenderer(&engine, libpath, RV_RENDERER_SOFTWARE);
 
-    river2D_loadConfig(&engine.config);
-    engine.config.choices |= RIVER2D_CHOICE_STATIC_CANVAS_BIT;
+    rvLoadConfig(&engine.config);
+    engine.config.choices |= RV_CHOICE_STATIC_CANVAS_BIT;
     engine.windowName = "River2D Map Editor";
 
-    river2D_init(&engine, planes);
+    rvInit(&engine, planes);
     marino_init(&engine, &launcher);
 
     Atom WM_DELETE = XInternAtom(engine.display, "WM_DELETE_WINDOW", false);
@@ -46,24 +46,24 @@ int main
             {
                 case KeyPress:
                 {
-                    AsciiKey ascii = processXKey(&engine, &event);
+                    AsciiKey ascii = rvProcessXKey(&engine, &event);
                     marino_processKeys(&engine.controls, ascii, true);
                     break;
                 }
                 case KeyRelease:
                 {
-                    AsciiKey ascii = processXKey(&engine, &event);
+                    AsciiKey ascii = rvProcessXKey(&engine, &event);
                     marino_processKeys(&engine.controls, ascii, false);
                     break;
                 }
                 case ButtonPress:
                 {
-                    if(event.xbutton.button == RIVER2D_MOUSE4)
+                    if(event.xbutton.button == RV_MOUSE4)
                     {
                         marino_scroll(&launcher, false);
                         break;
                     }
-                    else if(event.xbutton.button == RIVER2D_MOUSE5)
+                    else if(event.xbutton.button == RV_MOUSE5)
                     {
                         marino_scroll(&launcher, true);
                         break;
@@ -129,7 +129,7 @@ int main
             int64_t  ns_threshold = (int64_t)(1e9f / (double)(desiredFPS));
 
             int64_t delta = (int64_t)
-                            river2D_deltaTime_now_ns(&launcher.lastPresentTime);
+                            rvDeltaTime_now_ns(&launcher.lastPresentTime);
 
             if(delta < ns_threshold)
             {

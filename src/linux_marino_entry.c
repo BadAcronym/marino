@@ -23,7 +23,7 @@ int main
 
     rvLoadConfig(&engine.config);
     engine.config.choices |= RV_CHOICE_STATIC_CANVAS_BIT;
-    engine.windowName = "River2D Map Editor";
+    engine.windowName = "marino";
 
     rvInit(&engine, planes);
     marino_init(&engine, &launcher);

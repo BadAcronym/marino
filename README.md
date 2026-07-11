@@ -25,6 +25,7 @@ Nothing. Not even a bare-bones application.
 - duplicate hider, game version merger
 - NSFW tags / hide & unhide games
 - cover styles
+- alerts for free games on epic/steam/prime/etc
 
 # MAYBE:
 - Game Store Integrations:

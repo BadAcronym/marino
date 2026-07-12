@@ -3,6 +3,10 @@
 #include "river2D_main.h"
 #include "string_view.h"
 
+#define MR_VIEW_DETAIL 0
+#define MR_VIEW_COVER  1
+#define MR_VIEW_LIST   2
+
 typedef struct GameData
 {
     uint32_t   UID;
@@ -18,31 +22,32 @@ typedef struct LauncherData
 {
     GameData  *games;
     RiverTime lastPresentTime;
-    uint32_t  viewScroll;
+    uint32_t  scroll;
     uint32_t  maxScroll;
     uint16_t  runningFrames;
+    uint8_t   view;
 }
 LauncherData;
 
-extern void marino_init
+extern void mrInit
 (
     EngineData   *engine,
     LauncherData *launcher
 );
 
-extern int32_t marino_shutdown
+extern int32_t mrShutdown
 (
     LauncherData *launcher
 );
 
-extern void marino_processKeys
+extern void mrProcessKeys
 (
     RiverControls *controls,
     AsciiKey      ascii,
     bool          down
 );
 
-extern void marino_processButtons
+extern void mrProcessButtons
 (
     LauncherData  *launcher,
     RiverControls *controls,
@@ -50,14 +55,14 @@ extern void marino_processButtons
     bool          down
 );
 
-extern void marino_processPointer
+extern void mrProcessPointer
 (
     EngineData *engine,
     uint32_t   x,
     uint32_t   y
 );
 
-extern void marino_scroll
+extern void mrScroll
 (
     LauncherData *launcher,
     bool         down

@@ -1,6 +1,6 @@
 #include "marino_main.h"
 
-void marino_init
+void mrInit
 (
     EngineData   *engine,
     LauncherData *launcher
@@ -8,24 +8,40 @@ void marino_init
     launcher->maxScroll = UINT32_MAX;
 }
 
-int32_t marino_shutdown
+int32_t mrShutdown
 (
     LauncherData *launcher
 ){
-
     return 0;
 }
 
-void marino_update
+void mrUpdate
 (
     EngineData   *engine,
     LauncherData *launcher
 ){
+    if(launcher->view == MR_VIEW_DETAIL)
+    {
+        // mrDrawDetailView();
+    }
+    else if(launcher->view == MR_VIEW_COVER)
+    {
+        // mrDrawCoverView();
+    }
+    else if(launcher->view == MR_VIEW_LIST)
+    {
+        // mrDrawList();
+    }
+    else
+    {
+        fprintf(stderr, "\033[31;1;7mERROR: invalid view: %u\033[0m\n",
+                launcher->view);
+    }
 
     ++launcher->runningFrames;
 }
 
-void marino_present
+void mrPresent
 (
     EngineData   *engine,
     LauncherData *launcher

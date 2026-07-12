@@ -52,12 +52,12 @@ void marino_scroll
     LauncherData *launcher,
     bool         down
 ){
-    if(down && launcher->viewScroll < launcher->maxScroll)
+    if(down && launcher->scroll < launcher->maxScroll)
     {
-        ++launcher->viewScroll;
+        ++launcher->scroll;
     }
-    else if(launcher->viewScroll)
+    else if(launcher->scroll)
     {
-        --launcher->viewScroll;
+        --launcher->scroll;
     }
 }

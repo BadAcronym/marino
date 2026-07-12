@@ -1,0 +1,37 @@
+#!/bin/bash
+
+if [[ -f ./vendor/river2D/clean ]]
+then
+    pushd ./vendor/river2D/ > /dev/null
+    ./clean
+    popd > /dev/null
+fi
+
+echo -e "\033[33mcleaning up marino builds...\033[0m"
+
+if [[ -d ./build/ ]]
+then
+    rm ./build/ -rf
+fi
+
+if [[ -d ./bin/ ]]
+then
+    rm ./bin/ -rf
+fi
+
+if [[ -d ./build/ ]]
+then
+    rm ./build/ -rf
+fi
+
+for out in callgrind.*
+do
+    if [[ ! -f $out ]]
+    then
+        continue;
+    fi
+
+    rm $out
+done
+
+echo -e "\033[32mcleaned marino!\n\033[0m"

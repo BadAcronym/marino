@@ -68,13 +68,13 @@ extern void mrScroll
     bool         down
 );
 
-extern void marino_update
+extern void mrUpdate
 (
     EngineData   *engine,
     LauncherData *launcher
 );
 
-extern void marino_present
+extern void mrPresent
 (
     EngineData   *engine,
     LauncherData *launcher

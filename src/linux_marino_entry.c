@@ -26,7 +26,7 @@ int main
     engine.windowName = "marino";
 
     rvInit(&engine, planes);
-    marino_init(&engine, &launcher);
+    mrInit(&engine, &launcher);
 
     Atom WM_DELETE = XInternAtom(engine.display, "WM_DELETE_WINDOW", false);
     XSetWMProtocols(engine.display, engine.window, &WM_DELETE, 1);
@@ -47,13 +47,13 @@ int main
                 case KeyPress:
                 {
                     AsciiKey ascii = rvProcessXKey(&engine, &event);
-                    marino_processKeys(&engine.controls, ascii, true);
+                    mrProcessKeys(&engine.controls, ascii, true);
                     break;
                 }
                 case KeyRelease:
                 {
                     AsciiKey ascii = rvProcessXKey(&engine, &event);
-                    marino_processKeys(&engine.controls, ascii, false);
+                    mrProcessKeys(&engine.controls, ascii, false);
                     break;
                 }
                 case ButtonPress:
@@ -69,19 +69,19 @@ int main
                         break;
                     }
 
-                    marino_processButtons(&launcher, &engine.controls,
+                    mrProcessButtons(&launcher, &engine.controls,
                                            event.xbutton.button, true);
                     break;
                 }
                 case ButtonRelease:
                 {
-                    marino_processButtons(&launcher, &engine.controls,
+                    mrProcessButtons(&launcher, &engine.controls,
                                            event.xbutton.button, false);
                     break;
                 }
                 case MotionNotify:
                 {
-                    marino_processPointer(&engine,
+                    mrProcessPointer(&engine,
                                            (uint32_t)event.xmotion.x,
                                            (uint32_t)event.xmotion.y);
                     break;
@@ -137,7 +137,7 @@ int main
                 nanosleep(&duration, NULL);
             }
 
-            marino_present(&engine, &launcher);
+            mrPresent(&engine, &launcher);
         }
     }
 
@@ -145,5 +145,5 @@ int main
     {
         return -1;
     }
-    return marino_shutdown(&launcher);
+    return mrShutdown(&launcher);
 }

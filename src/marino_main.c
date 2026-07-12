@@ -22,15 +22,15 @@ void mrUpdate
 ){
     if(launcher->view == MR_VIEW_DETAIL)
     {
-        // mrDrawDetailView();
+        mrDrawDetailView(engine, launcher);
     }
     else if(launcher->view == MR_VIEW_COVER)
     {
-        // mrDrawCoverView();
+        mrDrawCoverView(engine, launcher);
     }
     else if(launcher->view == MR_VIEW_LIST)
     {
-        // mrDrawList();
+        mrDrawListView(engine, launcher);
     }
     else
     {

@@ -1,6 +1,6 @@
 #include "marino_main.h"
 
-void marino_processKeys
+void mrProcessKeys
 (
     RiverControls *controls,
     AsciiKey      key,
@@ -17,7 +17,7 @@ void marino_processKeys
 
 }
 
-void marino_processButtons
+void mrProcessButtons
 (
     LauncherData  *launcher,
     RiverControls *controls,
@@ -26,7 +26,7 @@ void marino_processButtons
 ){
 }
 
-void marino_processPointer
+void mrProcessPointer
 (
     EngineData *engine,
     uint32_t   x,
@@ -47,7 +47,7 @@ void marino_processPointer
     engine->controls.pointer.y = (float)y / (float)dim.height;
 }
 
-void marino_scroll
+void mrScroll
 (
     LauncherData *launcher,
     bool         down

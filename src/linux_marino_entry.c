@@ -60,12 +60,12 @@ int main
                 {
                     if(event.xbutton.button == RV_MOUSE4)
                     {
-                        marino_scroll(&launcher, false);
+                        mrScroll(&launcher, false);
                         break;
                     }
                     else if(event.xbutton.button == RV_MOUSE5)
                     {
-                        marino_scroll(&launcher, true);
+                        mrScroll(&launcher, true);
                         break;
                     }
 
@@ -122,7 +122,7 @@ int main
 
         if(mapped)
         {
-            marino_update(&engine, &launcher);
+            mrUpdate(&engine, &launcher);
 
             // 243 -> 240 for the same rounding error reasons as islescape right now :p
             uint32_t desiredFPS   = 243;

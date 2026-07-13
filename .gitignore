@@ -10,5 +10,6 @@ compile_flags*
 *.raddbg
 *.log
 *river2Dconf
+*gamelist
 river2D.ini
 callgrind.*

@@ -7,6 +7,8 @@
 #define MR_VIEW_COVER  1
 #define MR_VIEW_LIST   2
 
+#define MR_PLANE_BACKGROUND 0
+
 typedef struct GameData
 {
     uint32_t   UID;

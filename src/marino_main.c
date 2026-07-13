@@ -5,6 +5,13 @@ void mrInit
     EngineData   *engine,
     LauncherData *launcher
 ){
+    rvCreateImage(engine, &engine->planes[MR_PLANE_BACKGROUND], 3840, 2160);
+    for(uint64_t i = 0; i < 3840 * 2160; ++i)
+    {
+        ((uint32_t*)engine->planes[MR_PLANE_BACKGROUND].data)[i] = 0xFF05051F;
+    }
+    rvSyncImage(engine, &engine->planes[MR_PLANE_BACKGROUND], true);
+
     launcher->maxScroll = UINT32_MAX;
 }
 

@@ -16,9 +16,9 @@ project("marino launcher")
              "./vendor/river2D/vendor/imgsurf/bin/%{cfg.buildcfg}/"})
     includedirs({"./include/",
                  "/usr/include/",
-                 "./vendor/puddle/include/",
                  "./vendor/river2D/include/",
-                 "./vendor/river2D/vendor/imgsurf/include"})
+                 "./vendor/river2D/vendor/imgsurf/include",
+                 "./vendor/river2D/vendor/imgsurf/vendor/puddle/include"})
     debugdir("./")
 
     filter("configurations:asan")

@@ -48,7 +48,8 @@ project("marino launcher")
         files({"./src/linux_marino*",
                "./include/linux_marino*",
                "./src/marino_*",
-               "./include/marino_*"})
+               "./include/marino_*",
+               "./vendor/river2D/vendor/imgsurf/vendor/puddle/src/linux*"})
         links({"river2Dcommon:static", "imgsurf:static"})
         linkoptions({"-lX11", "-lXrender", "-lXcursor", "-lm", "-fuse-ld=mold"})
         buildoptions({"-Wextra", "-Wall", "-Wpedantic", "-Wconversion", "-Wshadow",
@@ -63,7 +64,8 @@ project("marino launcher")
         files({"./src/win32_marino*",
                "./include/win32_marino*",
                "./src/marino_*",
-               "./include/marino_*"})
+               "./include/marino_*",
+               "./vendor/river2D/vendor/imgsurf/vendor/puddle/src/win32*"})
         links({"river2Dcommon.lib", "imgsurf.lib"})
         buildoptions{"/wd4068", "/wd4100"}
 

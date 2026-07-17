@@ -3,7 +3,7 @@
 #include "river2D_main.h"
 #include "string_view.h"
 
-#define GAMES_LOCAL "gamelist"
+#define GAMES_LOCAL "marino_entries"
 
 #define MR_VIEW_DETAIL 0
 #define MR_VIEW_COVER  1
@@ -11,20 +11,21 @@
 
 #define MR_PLANE_BACKGROUND 0
 
-typedef struct GameData
+typedef struct EntryData
 {
     uint32_t   UID;
+    uint32_t   flags;
     StringView name;
     RiverImage *icon;
     RiverImage *cover;
     RiverImage *background;
     StringView description;
 }
-GameData;
+EntryData;
 
 typedef struct LauncherData
 {
-    GameData  *games;
+    EntryData *entries;
     RiverTime lastPresentTime;
     uint32_t  scroll;
     uint32_t  maxScroll;

@@ -3,6 +3,8 @@
 #include "river2D_main.h"
 #include "string_view.h"
 
+#define GAMES_LOCAL "gamelist"
+
 #define MR_VIEW_DETAIL 0
 #define MR_VIEW_COVER  1
 #define MR_VIEW_LIST   2

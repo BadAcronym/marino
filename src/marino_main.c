@@ -1,5 +1,10 @@
 #include "marino_main.h"
 
+#define bufsize     8192
+#define PATH_MAXLEN 4096
+
+#include "pd_path.h"
+
 void mrInit
 (
     EngineData   *engine,
@@ -11,6 +16,33 @@ void mrInit
         ((uint32_t*)engine->planes[MR_PLANE_BACKGROUND].data)[i] = 0xFF05051F;
     }
     rvSyncImage(engine, &engine->planes[MR_PLANE_BACKGROUND], true);
+
+    char path_expanded[PATH_MAXLEN];
+    pdExpandPath(GAMES_LOCAL, path_expanded);
+
+    FILE *file = fopen(path_expanded, "r");
+    if(!file)
+    {
+        fprintf(stderr, "\033[33;3mWARNING: could not open game list."
+                "\033[0m\n");
+    }
+
+    char buf[bufsize];
+    while(fgets(buf, bufsize, file))
+    {
+        StringView buffer;
+        buffer.data = buf;
+        buffer.size = bufsize;
+
+        StringView comment_sv  = cstr_sv("//");
+        const char *commentloc = sv_find(comment_sv, buffer);
+        if(commentloc == buf)
+        {
+            continue;
+        }
+
+        printf(PRI_SV"\n", ARG_SV(buffer));
+    }
 
     launcher->maxScroll = UINT32_MAX;
 }

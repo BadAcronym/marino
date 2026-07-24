@@ -10,6 +10,8 @@ f_internal void readEntries
     LauncherData *launcher,
     const char   *path_expanded
 ){
+    const char header[5] = "mari";
+
     FILE *file = fopen(path_expanded, "rb");
     if(!file)
     {
@@ -17,41 +19,39 @@ f_internal void readEntries
         return;
     }
 
-    uint64_t entrycount = 0;
-
-    char buf[bufsize];
-    while(fgets(buf, bufsize, file))
+    int byte;
+    for(uint8_t i = 0; i < 4 && ((byte = fgetc(file)) != EOF); ++i)
     {
-        StringView buffer;
-        buffer.data = buf;
-        buffer.size = bufsize;
-
-        ++entrycount;
-    }
-
-    file = freopen(path_expanded, "r", file);
-    for(uint64_t i = 0; fgets(buf, bufsize, file); ++i)
-    {
-        StringView buffer;
-        buffer.data = buf;
-        buffer.size = bufsize;
-
-        char *namebuf = calloc(4096, 1);
-        launcher->entries[i].name = cstr_sv_cpy(buf, namebuf);
-        if(launcher->entries[i].name.size)
+        if(byte != header[i])
         {
-            launcher->entries[i].name.size -= 1;
+            fprintf(stderr, "\033[31;1;7mERROR: failed to validate header.\033[0m\n");
         }
     }
-    fclose(file);
 
-    #ifdef DEBUG
+    uint64_t entrycount = 0;
+    size_t   elements   = 0;
+
+    if((elements = fread(&entrycount, 8, 1, file)) != 1)
+    {
+        fprintf(stderr, "\033[31;1;7mERROR: failed to read entrycount.\033[0m\n");
+        return;
+    }
+
     for(uint64_t i = 0; i < entrycount; ++i)
     {
-        fprintf(stderr, "found entry %lu: "PRI_SV"\n",
-                i, ARG_SV(launcher->entries[i].name));
+        EntryData entry = {0};
+
+        if((elements = fread(&entry, sizeof(EntryData), 1, file)) != 1)
+        {
+            fprintf(stderr, "\033[31;1;7mERROR: failed to read entry %lu."
+                    "\033[0m\n", i);
+            return;
+        }
+        #ifdef DEBUG
+            fprintf(stderr, "read entry %lu: " PRI_SV "\n", i, ARG_SV(entry.name));
+        #endif
     }
-    #endif
+    fclose(file);
 }
 
 void mrInit

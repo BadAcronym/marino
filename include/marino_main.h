@@ -15,10 +15,10 @@ typedef struct EntryData
 {
     uint32_t   UID;
     uint32_t   flags;
-    StringView name;
     RiverImage *icon;
     RiverImage *cover;
     RiverImage *background;
+    StringView name;
     StringView description;
 }
 EntryData;

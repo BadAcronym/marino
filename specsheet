@@ -16,5 +16,5 @@ entries[entrycount]
 // }
 // EntryData;
 
-while reading/writing from file, only populate the `path`, `width` and `height` fields
-of any given image. Actual loading will be done at runtime.
+while writing to file, only populate the `path`, `width` and `height` fields of any
+given image. Actual loading will then be done at runtime.

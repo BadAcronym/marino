@@ -2,3 +2,19 @@ char[4] header = "mari"
 uint64_t entrycount
 
 entries[entrycount]
+
+// an entry is constituted as follows:
+// typedef struct EntryData
+// {
+//     uint32_t   UID;
+//     uint32_t   flags;
+//     RiverImage *icon;
+//     RiverImage *cover;
+//     RiverImage *background;
+//     StringView name;
+//     StringView description;
+// }
+// EntryData;
+
+while reading/writing from file, only populate the `path`, `width` and `height` fields
+of any given image. Actual loading will be done at runtime.

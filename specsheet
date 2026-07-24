@@ -1,0 +1,4 @@
+char[4] header = "mari"
+uint64_t entrycount
+
+entries[entrycount]

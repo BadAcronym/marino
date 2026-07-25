@@ -11,6 +11,10 @@
 
 #define MR_PLANE_BACKGROUND 0
 
+#define MR_KEY_NEWENTRY 1L
+
+#define MR_BIT_NEWENTRY 0x0000000000000001LLU
+
 typedef struct EntryData
 {
     uint32_t   UID;

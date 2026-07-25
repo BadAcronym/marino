@@ -15,6 +15,11 @@
 
 #define MR_BIT_NEWENTRY 0x0000000000000001LLU
 
+#define MR_FLAG_MODE_NORMAL 0x000001L
+#define MR_FLAG_MODE_INSERT 0x000002L
+#define MR_FLAG_MODE_VISUAL 0x000004L
+#define MR_FLAG_MODE_CMD    0x000008L
+
 typedef struct EntryData
 {
     uint32_t   UID;
@@ -31,6 +36,7 @@ typedef struct LauncherData
 {
     EntryData *entries;
     RiverTime lastPresentTime;
+    uint32_t  flags;
     uint32_t  scroll;
     uint32_t  maxScroll;
     uint16_t  runningFrames;

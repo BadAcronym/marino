@@ -10,6 +10,7 @@ Nothing. Not even a bare-bones application.
       (just add plain dmenu integration?)
 - cross-platform
 - performant but available (Software / OpenGL)
+- optional Vim bindings O.o
 
 # MVP functionality:
 - global shortcut launcher & search (fd/rg? or make own?)
@@ -18,6 +19,7 @@ Nothing. Not even a bare-bones application.
 - time tracker
 - state selector (completed / beaten / in progress / playing / NG+ / custom),
   customizeable
+- Vim bindings only
 
 # Planned features:
 - stats screen about how many games beaten, median / average time to beat,

@@ -71,6 +71,8 @@ void mrInit
 
     readEntries(launcher, path_expanded);
 
+    engine->controls.keycodes[MR_KEY_NEWENTRY] = 'n';
+
     launcher->maxScroll = UINT32_MAX;
 }
 

@@ -1,5 +1,37 @@
 #include "marino_main.h"
 
+void mrProcessButtons
+(
+    LauncherData  *launcher,
+    RiverControls *controls,
+    uint32_t      button,
+    bool          down
+){
+}
+
+f_internal void processKey_function
+(
+    RiverControls *controls,
+    uint8_t       desired,
+    AsciiKey      key,
+    uint64_t      bit,
+    bool          isDown
+){
+    if(isDown && key.key == controls->keycodes[desired])
+    {
+        controls->keymap |= bit;
+        return;
+    }
+
+    if(key.key == controls->keycodes[desired])
+    {
+        controls->keymap &= ~bit;
+    }
+}
+
+#define processKey(kmacro, bitmacro) \
+processKey_function(controls, kmacro, key, bitmacro, down)
+
 void mrProcessKeys
 (
     RiverControls *controls,
@@ -15,15 +47,7 @@ void mrProcessKeys
         }
     }
 
-}
-
-void mrProcessButtons
-(
-    LauncherData  *launcher,
-    RiverControls *controls,
-    uint32_t      button,
-    bool          down
-){
+    processKey(MR_KEY_NEWENTRY, MR_BIT_NEWENTRY);
 }
 
 void mrProcessPointer

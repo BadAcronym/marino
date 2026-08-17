@@ -1,4 +1,5 @@
-#pragma once
+#ifndef MR_HEADER
+#define MR_HEADER
 
 #include "river2D_main.h"
 #include "string_view.h"
@@ -112,3 +113,5 @@ extern void mrDrawListView
     EngineData   *engine,
     LauncherData *launcher
 );
+
+#endif

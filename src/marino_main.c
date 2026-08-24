@@ -1,7 +1,7 @@
 #include "marino_main.h"
 
-#define bufsize     8192
-#define PATH_MAXLEN 4096
+#define bufsize  8192
+#define MAX_PATH 4096
 
 #include "pd_path.h"
 
@@ -66,8 +66,9 @@ void mrInit
     }
     rvSyncImage(engine, &engine->planes[MR_PLANE_BACKGROUND], true);
 
-    char path_expanded[PATH_MAXLEN];
-    pdExpandPath(GAMES_LOCAL, path_expanded);
+    StringView localdb = cstr_sv(GAMES_LOCAL);
+    char path_expanded[MAX_PATH];
+    pdExpandPath(localdb, path_expanded);
 
     readEntries(launcher, path_expanded);
 

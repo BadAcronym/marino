@@ -7,11 +7,12 @@ workspace("marino")
     location("build")
     architecture("x86_64")
 
-project("marino launcher")
+project("marino")
     language("C")
     cdialect("C99")
     warnings("Extra")
     targetname("marino")
+    kind("ConsoleApp")
     libdirs({"./vendor/river2D/bin/%{cfg.buildcfg}/",
              "./vendor/river2D/vendor/imgsurf/bin/%{cfg.buildcfg}/"})
     includedirs({"./include/",
@@ -20,6 +21,9 @@ project("marino launcher")
                  "./vendor/river2D/vendor/imgsurf/include",
                  "./vendor/river2D/vendor/imgsurf/vendor/puddle/include"})
     debugdir("./")
+    buildoptions({"-Wextra", "-Wall", "-Wpedantic", "-Wconversion", "-Wshadow",
+                  "-Wsign-compare", "-Wtype-limits", "-Wunused"})
+    links({"river2Dcommon:static", "imgsurf:static"})
 
     filter("configurations:asan")
         defines{"ASAN"}
@@ -31,6 +35,8 @@ project("marino launcher")
         runtime("debug")
         symbols("On")
         optimize("Off")
+        buildoptions({"-g", "-O0"})
+        linkoptions({"-g", "-O0"})
 
     filter("configurations:release")
         defines{"NDEBUG"}
@@ -39,10 +45,9 @@ project("marino launcher")
         symbols("Off")
         optimize("Speed")
 
-    filter("platforms:Linux")
-        system("Linux")
+    filter("platforms:linux")
+        system("linux")
         defines("BUILD_LINUX")
-        kind("ConsoleApp")
         targetdir("bin/%{cfg.buildcfg}")
         objdir("obj/%{cfg.buildcfg}")
         files({"./src/linux_marino*",
@@ -52,12 +57,9 @@ project("marino launcher")
                "./vendor/river2D/vendor/imgsurf/vendor/puddle/src/linux*"})
         links({"river2Dcommon:static", "imgsurf:static"})
         linkoptions({"-lX11", "-lXrender", "-lXcursor", "-lm", "-fuse-ld=mold"})
-        buildoptions({"-Wextra", "-Wall", "-Wpedantic", "-Wconversion", "-Wshadow",
-                      "-Wsign-compare"})
-        toolset("clang")
 
-    filter("platforms:Windows")
-        system("Windows")
+    filter("platforms:windows")
+        system("windows")
         defines("BUILD_WINDOWS")
         targetdir("bin/%{cfg.buildcfg}")
         objdir("obj/")
@@ -67,25 +69,26 @@ project("marino launcher")
                "./include/marino_*",
                "./vendor/river2D/vendor/imgsurf/vendor/puddle/src/win32*"})
         links({"river2Dcommon.lib", "imgsurf.lib"})
-        buildoptions{"/wd4068", "/wd4100"}
 
-    filter({"platforms:Linux", "configurations:debug or asan"})
-        buildoptions({"-gfull", "-O1"})
-        linkoptions({"-gfull", "-O1"})
+    filter({"platforms:windows", "configurations:release"})
+        kind("WindowedApp")
 
-    filter({"platforms:Linux", "configurations:asan"})
+    filter({"platforms:linux", "configurations:debug or asan"})
+        buildoptions({"-gfull"})
+        linkoptions({"-gfull"})
+
+    filter({"platforms:windows", "configurations:debug or asan"})
+        buildoptions({"-gcodeview"})
+        linkoptions({"-gcodeview"})
+
+    filter({"platforms:linux", "configurations:asan"})
         buildoptions({"-fsanitize=address,leak,undefined", "-fno-omit-frame-pointer",
                       "-static-libasan"})
         linkoptions({"-fsanitize=address,leak,undefined", "-fno-omit-frame-pointer",
                      "-static-libasan"})
 
-    filter({"platforms:Windows", "configurations:debug or asan"})
-        kind("ConsoleApp")
-
-    filter({"platforms:Windows", "configurations:asan"})
-        editandcontinue("Off")
+    filter({"platforms:windows", "configurations:asan"})
+        toolset("clang-cl")
         buildoptions({"/fsanitize=address", "/Zi", "/INCREMENTAL:NO"})
-
-    filter({"platforms:Windows", "configurations:release"})
-        kind("WindowedApp")
-        linkoptions("/NODEFAULTLIB:MSVCRTD")
+        linkoptions{"/link clang_rt.asan_dynamic-x86_64.lib clang_rt.asan_dynamic_runtime_thunk-x86_64.lib"}
+        editandcontinue("Off")

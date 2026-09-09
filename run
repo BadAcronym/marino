@@ -22,6 +22,7 @@ src/linux_marino_entry.c \
 ./vendor/river2D/vendor/imgsurf/src/imgsurf_format_qoi.c \
 ./vendor/river2D/vendor/imgsurf/src/imgsurf_format_png.c \
 -Iinclude/ \
+-std=c99 \
 -Ivendor/river2D/include/ \
 -Ivendor/river2D/vendor/imgsurf/include/ \
 -Ivendor/river2D/vendor/imgsurf/vendor/puddle/include/ \

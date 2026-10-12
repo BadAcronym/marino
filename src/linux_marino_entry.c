@@ -18,7 +18,7 @@ int main
     EngineData   engine   = {0};
     RiverImage   planes[RV_MAX_PLANES] = {0};
 
-    StringView libpath = cstr_sv(LIBPATH);
+    StringView libpath = pdCstrSV(LIBPATH);
     rvResolveFunctions(&engine, libpath, RV_RENDERER_SOFTWARE);
 
     rvLoadConfig(&engine.config);
@@ -99,11 +99,11 @@ int main
                     resizeWidth  = (uint32_t)event.xconfigure.width;
                     resizeHeight = (uint32_t)event.xconfigure.height;
 
-                    if(resizeWidth  != engine.config.window_width  ||
-                       resizeHeight != engine.config.window_height
+                    if(resizeWidth  != engine.config.windowWidth  ||
+                       resizeHeight != engine.config.windowHeight
                     ){
-                        engine.config.window_width  = resizeWidth;
-                        engine.config.window_height = resizeHeight;
+                        engine.config.windowWidth  = resizeWidth;
+                        engine.config.windowHeight = resizeHeight;
                     }
                     break;
                 }

@@ -1,4 +1,5 @@
 #include "marino_main.h"
+#include <inttypes.h>
 
 #define bufsize  8192
 #define MAX_PATH 4096
@@ -48,7 +49,7 @@ f_internal void readEntries
             return;
         }
         #ifdef DEBUG
-            fprintf(stderr, "read entry %lu: " PRI_SV "\n", i, ARG_SV(entry.name));
+            fprintf(stderr, "read entry %"PRIu64": "PRI_SV"\n", i, ARG_SV(entry.name));
         #endif
     }
     fclose(file);
@@ -66,7 +67,7 @@ void mrInit
     }
     rvSyncImage(engine, &engine->planes[MR_PLANE_BACKGROUND], true);
 
-    StringView localdb = cstr_sv(GAMES_LOCAL);
+    StringView localdb = pdCstrSV(GAMES_LOCAL);
     char path_expanded[MAX_PATH];
     pdExpandPath(localdb, path_expanded);
 

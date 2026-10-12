@@ -17,15 +17,12 @@ src/marino_main.c \
 src/marino_input.c \
 src/marino_views.c \
 src/linux_marino_entry.c \
-./vendor/river2D/vendor/imgsurf/src/imgsurf_main.c \
-./vendor/river2D/vendor/imgsurf/src/imgsurf_format_bmp.c \
-./vendor/river2D/vendor/imgsurf/src/imgsurf_format_qoi.c \
-./vendor/river2D/vendor/imgsurf/src/imgsurf_format_png.c \
--Iinclude/ \
 -std=c99 \
+-Iinclude/ \
 -Ivendor/river2D/include/ \
 -Ivendor/river2D/vendor/imgsurf/include/ \
--Ivendor/river2D/vendor/imgsurf/vendor/puddle/include/ \
+-Ivendor/river2D/vendor/imgsurf/vendor/datasurf/include/ \
+-Ivendor/river2D/vendor/imgsurf/vendor/datasurf/vendor/puddle/include/ \
 -Lvendor/river2D/bin/$build \
 -Wextra -Wall -Wpedantic -Wconversion -Wshadow -Wsign-compare -Wtype-limits -Wunused \
 -fuse-ld=mold \
@@ -33,13 +30,15 @@ src/linux_marino_entry.c \
 
 args_release="-O2"
 
-args_debug="-DDEBUG -g -O0"
+args_debug="-DDEBUG -DMR_PRI_DEBUG -g -O0"
 
 args_asan="$args_debug -DASAN \
 -fsanitize=address,leak,undefined \
 -fno-omit-frame-pointer \
 -static-libasan \
 -O0"
+
+args_trace="$args_debug -DMR_PRI_TRACE"
 
 function compile_engine()
 {
@@ -112,8 +111,14 @@ then
     compile_engine $build
     compile "$args_always $args_asan"
 else
+if [[ $build = "trace" ]]
+then
+    compile_engine $debug
+    compile "$args_always $args_trace"
+else
     echo -e "\033[31m\nERROR: invalid make config: $build.\033[0m"
     exit 3;
+fi
 fi
 fi
 fi

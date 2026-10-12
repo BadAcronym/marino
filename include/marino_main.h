@@ -2,7 +2,10 @@
 #define MR_HEADER
 
 #include "river2D_main.h"
-#include "string_view.h"
+
+#include "pd_string_view.h"
+
+#include <inttypes.h>
 
 #define GAMES_LOCAL "marino_entries"
 

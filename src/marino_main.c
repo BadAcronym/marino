@@ -1,5 +1,5 @@
 #include "marino_main.h"
-#include <inttypes.h>
+#include "mr_print_macros.h"
 
 #define bufsize  8192
 #define MAX_PATH 4096
@@ -16,7 +16,7 @@ f_internal void readEntries
     FILE *file = fopen(path_expanded, "rb");
     if(!file)
     {
-        fprintf(stderr, "\033[33;3mWARNING: could not open library data.\033[0m\n");
+        MR_WARN("could not open library data.");
         return;
     }
 
@@ -25,7 +25,7 @@ f_internal void readEntries
     {
         if(byte != header[i])
         {
-            fprintf(stderr, "\033[31;1;7mERROR: failed to validate header.\033[0m\n");
+            MR_ERROR("failed to validate header.");
         }
     }
 
@@ -34,7 +34,7 @@ f_internal void readEntries
 
     if((elements = fread(&entrycount, 8, 1, file)) != 1)
     {
-        fprintf(stderr, "\033[31;1;7mERROR: failed to read entrycount.\033[0m\n");
+        MR_ERROR("failed to read entrycount.");
         return;
     }
 
@@ -44,13 +44,10 @@ f_internal void readEntries
 
         if((elements = fread(&entry, sizeof(EntryData), 1, file)) != 1)
         {
-            fprintf(stderr, "\033[31;1;7mERROR: failed to read entry %lu."
-                    "\033[0m\n", i);
+            MR_ERROR("failed to read entry %"PRIu64".", i);
             return;
         }
-        #ifdef DEBUG
-            fprintf(stderr, "read entry %"PRIu64": "PRI_SV"\n", i, ARG_SV(entry.name));
-        #endif
+        MR_DEBUG("read entry %"PRIu64": "PRI_SV"\n", i, ARG_SV(entry.name));
     }
     fclose(file);
 }
@@ -104,8 +101,7 @@ void mrUpdate
     }
     else
     {
-        fprintf(stderr, "\033[31;1;7mERROR: invalid view: %u\033[0m\n",
-                launcher->view);
+        MR_ERROR("invalid view: %"PRIu8, launcher->view);
     }
 
     ++launcher->runningFrames;

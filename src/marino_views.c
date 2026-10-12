@@ -1,4 +1,5 @@
 #include "marino_main.h"
+#include "mr_print_macros.h"
 
 f_internal void pollGlobalKeybinds
 (
@@ -7,7 +8,7 @@ f_internal void pollGlobalKeybinds
 ){
     if(engine->controls.keymap & MR_BIT_NEWENTRY)
     {
-        fprintf(stderr, "Hi, one new entry please!\n");
+        MR_DEBUG("TODO: Hi, one new entry please!\n");
         engine->controls.keymap &= ~MR_BIT_NEWENTRY;
     }
 }

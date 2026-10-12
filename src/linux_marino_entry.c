@@ -128,8 +128,7 @@ int main
             uint32_t desiredFPS   = 243;
             int64_t  ns_threshold = (int64_t)(1e9f / (double)(desiredFPS));
 
-            int64_t delta = (int64_t)
-                            rvDeltaTime_now_ns(&launcher.lastPresentTime);
+            int64_t delta = (int64_t)rvDeltaTime_now_ns(&launcher.lastPresentTime);
 
             if(delta < ns_threshold)
             {

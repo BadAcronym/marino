@@ -17,7 +17,7 @@ src/marino_main.c \
 src/marino_input.c \
 src/marino_views.c \
 src/linux_marino_entry.c \
--std=c99 \
+-std=gnu99 \
 -Iinclude/ \
 -Ivendor/river2D/include/ \
 -Ivendor/river2D/vendor/imgsurf/include/ \
